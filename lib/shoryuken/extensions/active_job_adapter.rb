@@ -31,6 +31,8 @@ module ActiveJob
       end
 
       def enqueue(job, options = {}) #:nodoc:
+	options = {message_group_id: SecureRandom.uuid}.merge(options)
+
         register_worker!(job)
 
         queue = Shoryuken::Client.queues(job.queue_name)
